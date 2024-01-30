@@ -2,7 +2,7 @@ name: Build and Test Reporting App
 
 on:
   push:
-    branches: [develop, main, feat/37-client-docker-file]
+    branches: [develop, main]
   pull_request:
     branches: [develop, main]
   workflow_dispatch:
@@ -32,13 +32,6 @@ jobs:
           registry: ghcr.io
           username: ${{ github.repository_owner }}
           password: ${{ secrets.GITHUB_TOKEN }}
-      - name: Cache Docker layers
-        uses: actions/cache@v4
-        with:
-          path: /tmp/.buildx-cache
-          key: ${{ runner.os }}-buildx-client-${{ github.sha }}
-          restore-keys: |
-            ${{ runner.os }}-buildx-client
       - name: Build image
         uses: docker/build-push-action@v5
         with:
@@ -50,3 +43,4 @@ jobs:
           labels: ${{ steps.meta.outputs.labels }}
           cache-from: type=gha
           cache-to: type=gha
+          
