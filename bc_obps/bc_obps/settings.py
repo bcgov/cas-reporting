@@ -71,7 +71,7 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'bc_obps.wsgi.application'
+WSGI_APPLICATION = 'bc_obps_reporting_api'
 
 
 # Database
