@@ -69,6 +69,23 @@ In the `client` directory:
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 You can start editing the page by modifying `pages/index.tsx`. The page auto-updates as you edit the file.
 
+## VS-Code optional setup
+
+If you would like VS-Code to utilize Black to format your Python code automatically, you can add the following to your local settings at `.vscode/settings.json`. If these are your only settings, you'll need to add curly braces wrapping the whole block. These settings also add Pytest to the testing frameworks available to VS-Code.
+
+```json
+  "[python]": {
+    "editor.formatOnSave": true,
+    "editor.defaultFormatter": "ms-python.black-formatter"
+  },
+  "black-formatter.importStrategy": "fromEnvironment",
+  "python.testing.pytestArgs": [
+      "bc_obps"
+  ],
+  "python.testing.unittestEnabled": false,
+  "python.testing.pytestEnabled": true
+```
+
 ## Pre-Commit
 
 TODO: Add pre-commit
