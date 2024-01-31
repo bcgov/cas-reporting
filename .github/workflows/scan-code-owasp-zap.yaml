@@ -26,7 +26,7 @@ jobs:
     - name: Install Node.js
       uses: actions/setup-node@v3
       with:
-        node-version: 16
+        node-version: 20
 
     - name: Setup package manager and install dependencies
       id: setup-deps
@@ -63,6 +63,7 @@ jobs:
         npx ${{ inputs.package-manager }} run build
         npx ${{ inputs.package-manager }} run start & # This starts the server in the background
         sleep 5 # This allows the server some time to start up
+      working-directory: ./client
 
     - name: Run OWASP ZAP Full Scan
       uses: zaproxy/action-full-scan@v0.5.1
