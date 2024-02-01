@@ -17,11 +17,11 @@ Ensure the following are installed:
 
 ## App Environment Variables
 
-In both the `client` and `bc_obps` directories, create a `.env` file and copy the contents of `.env.example` file of the respective directory into it. See the 1Password vault for the values.
+In both the `client` and `server` directories, create a `.env` file and copy the contents of `.env.example` file of the respective directory into it. See the 1Password vault for the values.
 
 ## Backend Environment Setup
 
-1. Navigate to folder: `cas-registration/bc_obps`.
+1. Navigate to folder: `cas-registration/server`.
 2. Copy/Paste the `.env.example` file and rename it `.env`.
 3. Complete the .env file values reflecting the 1Password vault document `OBPS backend ENV`.
 4. Run `make install_dev_tools`. This will install asdf plugins, poetry and activate the poetry virtual environment (to get into the environment again after setup, run `poetry shell`). To exit the shell run `exit`.
@@ -38,7 +38,7 @@ In both the `client` and `bc_obps` directories, create a `.env` file and copy th
 
 After doing the initial setup, to get the backend re-running:
 
-1. From the `cas-registration/bc_obps` directory, run `poetry shell`
+1. From the `cas-registration/server` directory, run `poetry shell`
 2. To set up the database:
    - If you want to drop and recreate the database with mock data, run `make reset_db`. (Warning: This will delete superusers and you will have to recreate with `make superuser`.)
    - If you want to keep your existing database and update (e.g. after a rebase)
@@ -80,7 +80,7 @@ If you would like VS-Code to utilize Black to format your Python code automatica
   },
   "black-formatter.importStrategy": "fromEnvironment",
   "python.testing.pytestArgs": [
-      "bc_obps"
+      "server"
   ],
   "python.testing.unittestEnabled": false,
   "python.testing.pytestEnabled": true
