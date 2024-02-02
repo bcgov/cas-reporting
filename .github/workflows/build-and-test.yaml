@@ -40,7 +40,7 @@ jobs:
           username: ${{ github.repository_owner }}
           password: ${{ secrets.GITHUB_TOKEN }}
       - name: Build image
-        uses: docker/build-push-action@v3
+        uses: docker/build-push-action@v5
         with:
           context: ${{ matrix.context }}
           builder: ${{ steps.buildx.outputs.name }}
