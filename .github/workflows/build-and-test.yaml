@@ -12,9 +12,9 @@ jobs:
     strategy:
       matrix:
         include:
-          - image: cas-reg-backend
+          - image: cas-reporting-backend
             context: server
-          - image: cas-reg-frontend
+          - image: cas-reporting-frontend
             context: client
     runs-on: ubuntu-latest
     steps:
