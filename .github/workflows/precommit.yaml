@@ -2,11 +2,8 @@ name: Precommit tests
 
 on:
   push:
-    branches:
-      - '*'
+    branches: [main, develop]
   pull_request:
-    branches:
-      - '*'
 
 jobs:
   pre-commit:
