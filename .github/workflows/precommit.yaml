@@ -2,7 +2,7 @@ name: Precommit tests
 
 on:
   push:
-    branches: [main, develop]
+    branches: [main, develop, 127-fix-precommit-conditions]
   pull_request:
 
 jobs:
