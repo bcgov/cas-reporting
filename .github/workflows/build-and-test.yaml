@@ -2,13 +2,20 @@ name: Build and Test Reporting App
 
 on:
   push:
-    branches: [develop, main]
+    branches: [develop, main, 70-backend-docker]
   pull_request:
     branches: [develop, main]
   workflow_dispatch:
 
 jobs:
-  frontend-docker-build:
+  docker-build:
+    strategy:
+      matrix:
+        include:
+          - image: cas-reg-backend
+            context: server
+          - image: cas-reg-frontend
+            context: client
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -21,7 +28,7 @@ jobs:
         id: meta
         uses: docker/metadata-action@v5
         with:
-          images: ghcr.io/bcgov/cas-reporting-frontend
+          images: ghcr.io/bcgov/${{ matrix.image }}
           tags: |
             type=sha,format=long,prefix=
             latest
@@ -33,12 +40,12 @@ jobs:
           username: ${{ github.repository_owner }}
           password: ${{ secrets.GITHUB_TOKEN }}
       - name: Build image
-        uses: docker/build-push-action@v5
+        uses: docker/build-push-action@v3
         with:
-          context: client
+          context: ${{ matrix.context }}
           builder: ${{ steps.buildx.outputs.name }}
           push: true
-          file: client/Dockerfile
+          file: ${{ matrix.context }}/Dockerfile
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
           cache-from: type=gha
