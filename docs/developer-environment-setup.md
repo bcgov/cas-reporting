@@ -21,7 +21,7 @@ In both the `client` and `server` directories, create a `.env` file and copy the
 
 ## Backend Environment Setup
 
-1. Navigate to folder: `cas-registration/server`.
+1. Navigate to folder: `cas-reporting/server`.
 2. Copy/Paste the `.env.example` file and rename it `.env`.
 3. Complete the .env file values reflecting the 1Password vault document `OBPS backend ENV`.
 4. Run `make install_dev_tools`. This will install asdf plugins, poetry and activate the poetry virtual environment (to get into the environment again after setup, run `poetry shell`). To exit the shell run `exit`.
@@ -38,7 +38,7 @@ In both the `client` and `server` directories, create a `.env` file and copy the
 
 After doing the initial setup, to get the backend re-running:
 
-1. From the `cas-registration/server` directory, run `poetry shell`
+1. From the `cas-reporting/server` directory, run `poetry shell`
 2. To set up the database:
    - If you want to drop and recreate the database with mock data, run `make reset_db`. (Warning: This will delete superusers and you will have to recreate with `make superuser`.)
    - If you want to keep your existing database and update (e.g. after a rebase)
