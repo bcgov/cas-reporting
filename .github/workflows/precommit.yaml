@@ -4,8 +4,17 @@ on:
   push:
     branches: [main, develop, 127-fix-precommit-conditions]
   pull_request:
+    branches: [main, develop]
 
 jobs:
+  install-dev-tools:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: dev env setup
+        uses: ./.github/actions/dev-env-setup
+      - run: yarn install --frozen-lockfile
+        working-directory: ./client
   pre-commit:
     needs: install-dev-tools
     runs-on: ubuntu-latest
@@ -30,4 +39,5 @@ jobs:
           path: |
             ./.pre-commit-cache
           key: pre-commit-${{ env.PY }}-${{ hashFiles('.pre-commit-config.yaml') }}-v3
-      - run: pre-commit run --all-files
+      - run: pip install -r requirements.txt
+      - uses: pre-commit/action@v3.0.0
