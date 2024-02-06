@@ -5,11 +5,11 @@ on:
     inputs:
       target-url:
         required: false
-        default: 'http://localhost:3000'
+        default: "http://localhost:3000"
         type: string
       package-manager:
         required: false
-        default: 'npm'
+        default: "npm"
         type: string
 
 concurrency:
@@ -21,52 +21,52 @@ jobs:
     timeout-minutes: 60
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v3
+      - uses: actions/checkout@v3
 
-    - name: Install Node.js
-      uses: actions/setup-node@v3
-      with:
-        node-version: 20
+      - name: Install Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 20
 
-    - name: Setup package manager and install dependencies
-      id: setup-deps
-      run: |
-        if [ "${{ inputs.package-manager }}" = "npm" ]; then
-          echo "::set-output name=cache-dir::$(npm config get cache)"
-          npm install
-        elif [ "${{ inputs.package-manager }}" = "yarn" ]; then
-          echo "::set-output name=cache-dir::$(yarn cache dir)"
-          npm install -g yarn
-          yarn install
-        elif [ "${{ inputs.package-manager }}" = "pnpm" ]; then
-          echo "::set-output name=cache-dir::$(npx -q pnpm config get store)"
-          npm install -g pnpm
-          pnpm install
-        else
-          echo "Unsupported package manager specified. Supported package managers are npm, yarn, and pnpm."
-          exit 1
-        fi
+      - name: Setup package manager and install dependencies
+        id: setup-deps
+        run: |
+          if [ "${{ inputs.package-manager }}" = "npm" ]; then
+            echo "::set-output name=cache-dir::$(npm config get cache)"
+            npm install
+          elif [ "${{ inputs.package-manager }}" = "yarn" ]; then
+            echo "::set-output name=cache-dir::$(yarn cache dir)"
+            npm install -g yarn
+            yarn install
+          elif [ "${{ inputs.package-manager }}" = "pnpm" ]; then
+            echo "::set-output name=cache-dir::$(npx -q pnpm config get store)"
+            npm install -g pnpm
+            pnpm install
+          else
+            echo "Unsupported package manager specified. Supported package managers are npm, yarn, and pnpm."
+            exit 1
+          fi
 
-    - name: Cache dependencies
-      uses: actions/cache@v3
-      with:
-        path: |
-          ~/.npm
-          ~/.yarn
-          ~/.pnpm-store
-        key: ${{ runner.os }}-${{ inputs.package-manager }}-${{ hashFiles('**/lockfiles') }}  
-        restore-keys: |
-          ${{ runner.os }}-${{ inputs.package-manager }}-
+      - name: Cache dependencies
+        uses: actions/cache@v3
+        with:
+          path: |
+            ~/.npm
+            ~/.yarn
+            ~/.pnpm-store
+          key: ${{ runner.os }}-${{ inputs.package-manager }}-${{ hashFiles('**/lockfiles') }}
+          restore-keys: |
+            ${{ runner.os }}-${{ inputs.package-manager }}-
 
-    - name: Build and start server
-      run: |
-        npx ${{ inputs.package-manager }} run build
-        npx ${{ inputs.package-manager }} run start & # This starts the server in the background
-        sleep 5 # This allows the server some time to start up
-      working-directory: ./client
+      - name: Build and start server
+        run: |
+          npx ${{ inputs.package-manager }} run build
+          npx ${{ inputs.package-manager }} run start & # This starts the server in the background
+          sleep 5 # This allows the server some time to start up
+        working-directory: ./client
 
-    - name: Run OWASP ZAP Full Scan
-      uses: zaproxy/action-full-scan@v0.5.1
-      with:
-        token: ${{ secrets.GITHUB_TOKEN }}
-        target: ${{ inputs.target-url }}
+      - name: Run OWASP ZAP Full Scan
+        uses: zaproxy/action-full-scan@v0.5.1
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          target: ${{ inputs.target-url }}
