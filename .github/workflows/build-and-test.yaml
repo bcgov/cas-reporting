@@ -2,7 +2,7 @@ name: Build and Test Reporting App
 
 on:
   push:
-    branches: [develop, main, 70-backend-docker]
+    branches: [develop, main]
   pull_request:
     branches: [develop, main]
   workflow_dispatch:
