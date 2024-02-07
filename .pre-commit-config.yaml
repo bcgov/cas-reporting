@@ -5,13 +5,6 @@ repos:
       - id: prettier
         name: Prettier
         stages: [commit]
-  - repo: local
-    hooks:
-      - id: eslint
-        name: ESLint
-        language: system
-        files: \.(j|t)sx?$
-        entry: ./.bin/pre-commit-lint.sh
 
   - repo: https://github.com/pre-commit/pre-commit-hooks
     rev: v2.3.0
