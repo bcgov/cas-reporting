@@ -8,7 +8,14 @@ on:
   workflow_dispatch:
 
 jobs:
-  frontend-docker-build:
+  docker-build:
+    strategy:
+      matrix:
+        include:
+          - image: cas-reporting-backend
+            context: server
+          - image: cas-reporting-frontend
+            context: client
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -21,7 +28,7 @@ jobs:
         id: meta
         uses: docker/metadata-action@v5
         with:
-          images: ghcr.io/bcgov/cas-reporting-frontend
+          images: ghcr.io/bcgov/${{ matrix.image }}
           tags: |
             type=sha,format=long,prefix=
             latest
@@ -35,10 +42,10 @@ jobs:
       - name: Build image
         uses: docker/build-push-action@v5
         with:
-          context: client
+          context: ${{ matrix.context }}
           builder: ${{ steps.buildx.outputs.name }}
           push: true
-          file: client/Dockerfile
+          file: ${{ matrix.context }}/Dockerfile
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
           cache-from: type=gha
