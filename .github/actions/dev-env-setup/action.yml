@@ -17,7 +17,7 @@ runs:
       with:
         path: |
           ~/.asdf
-          ./bc_obps/.tool-versions
+          ./server/.tool-versions
         key: ${{ runner.os }}-asdf-cache-backend-${{ hashFiles('bc_obps/.tool-versions') }}
     - uses: actions/cache@v3
       id: yarn-cache
@@ -45,10 +45,10 @@ runs:
     - name: Install dependencies
       if: steps.cached-poetry-dependencies.outputs.cache-hit != 'true'
       run: poetry install --no-interaction --no-root
-      working-directory: ./bc_obps
+      working-directory: ./server
       shell: bash
     - name: Install server dev tools
-      working-directory: ./bc_obps
+      working-directory: ./server
       shell: bash
       run: |
         make install_backend_asdf_tools
