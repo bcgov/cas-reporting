@@ -19,7 +19,11 @@ jobs:
         with:
           node-version: 20
       - name: Install dependencies
-        run: yarn install
+        run: |
+          cd client
+          yarn install
 
       - name: Run ESLint
-        run: yarn run eslint
+        run: |
+          cd client
+          yarn run eslint

@@ -26,8 +26,5 @@
     "hooks": {
       "before:git:beforeRelease": "./.bin/pre-commit-format.sh CHANGELOG.md"
     }
-  },
-  "dependencies": {
-    "eslint": "^8.56.0"
   }
 }
