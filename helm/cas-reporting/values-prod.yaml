@@ -1,0 +1,22 @@
+backend:
+  replicaCount: 1
+
+  image:
+    tag: "latest"
+
+  environment: production
+
+frontend:
+  replicaCount: 1
+
+  image:
+    tag: "latest"
+
+  route:
+    host: ~
+
+  environment: production
+
+  auth:
+    keycloakAuthUrl: https://loginproxy.gov.bc.ca/auth
+    siteminderAuthUrl: https://logon7.gov.bc.ca

@@ -1,0 +1,27 @@
+backend:
+  replicaCount: 1
+
+  image:
+    tag: "latest"
+
+  route:
+    host: cas-reporting-backend-dev.apps.silver.devops.gov.bc.ca
+
+  environment: develop
+
+  deployRoute: true
+
+frontend:
+  replicaCount: 1
+
+  image:
+    tag: "latest"
+
+  route:
+    host: cas-reporting-frontend-dev.apps.silver.devops.gov.bc.ca
+
+  environment: develop
+
+  auth:
+    keycloakAuthUrl: https://dev.loginproxy.gov.bc.ca/auth
+    siteminderAuthUrl: https://logontest7.gov.bc.ca
