@@ -73,7 +73,10 @@ frontend:
     # targetMemoryUtilizationPercentage: 80
 
 database:
-  releaseName: cas-obps-postgres
+  # The name of the release which deploys the postgres CrunchyDB cluster
+  release: cas-obps-postgres
+  # The name of the secret containing the database connection strings
+  secret: cas-obps-postgres-pguser-registration
 
 devops:
   image:

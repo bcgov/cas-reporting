@@ -31,32 +31,31 @@ spec:
                 secretKeyRef:
                   key: django-secret-key
                   name: {{ .Release.Name }}-backend
-              # The database connection strings are the same as for the registration app
             - name: DB_USER
               valueFrom:
                 secretKeyRef:
                   key: user
-                  name: cas-obps-postgres-pguser-registration
+                  name: {{ .Values.database.secret }}
             - name: DB_PASSWORD
               valueFrom:
                 secretKeyRef:
                   key: password
-                  name: cas-obps-postgres-pguser-registration
+                  name: {{ .Values.database.secret }}
             - name: DB_NAME
               valueFrom:
                 secretKeyRef:
                   key: dbname
-                  name: cas-obps-postgres-pguser-registration
+                  name: {{ .Values.database.secret }}
             - name: DB_PORT
               valueFrom:
                 secretKeyRef:
                   key: port
-                  name: cas-obps-postgres-pguser-registration
+                  name: {{ .Values.database.secret }}
             - name: DB_HOST
               valueFrom:
                 secretKeyRef:
                   key: host
-                  name: cas-obps-postgres-pguser-registration
+                  name: {{ .Values.database.secret }}
             - name: ALLOWED_HOSTS
               value: '*'
             - name: ENVIRONMENT
