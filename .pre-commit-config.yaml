@@ -1,0 +1,25 @@
+repos:
+  - repo: https://github.com/pre-commit/mirrors-prettier
+    rev: v3.0.3 # Use the sha or tag you want to point at
+    hooks:
+      - id: prettier
+        name: Prettier
+        stages: [commit]
+
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v2.3.0
+    hooks:
+      - id: check-added-large-files
+      - id: check-case-conflict
+      - id: check-executables-have-shebangs
+      - id: check-json
+      - id: check-vcs-permalinks
+      - id: check-yaml
+        exclude: (^helm/.*/templates/)
+      - id: end-of-file-fixer
+      - id: trailing-whitespace
+      - id: debug-statements
+  - repo: https://github.com/psf/black
+    rev: 22.10.0
+    hooks:
+      - id: black

@@ -1,14 +1,12 @@
 ---
 name: Discovery and Service Design Task Template
 about: Discovery and Service Design Task Template
-title: ''
-labels: ''
-assignees: ''
-
+title: ""
+labels: ""
+assignees: ""
 ---
 
 #### Goal of Ticket
-
 
 #### Describe the task
 
@@ -25,7 +23,9 @@ A clear and concise description of what the task is.
 Add any other context about the task here.
 
 #### Definition of Ready:
-  Note: If any of the points are not applicable: delete or mark N/A
+
+Note: If any of the points are not applicable: delete or mark N/A
+
 - [ ] Topic is clearly Defined.
 - [ ] Task Description is Clear.
 - [ ] People to speak to are identified (if applicable).
@@ -37,6 +37,7 @@ Add any other context about the task here.
 - [ ] Ticket Estimated.
 
 #### Definition of Done.
+
 Note: If any of the points are not applicable: delete or mark N/A
 
 - [ ] Rough User Stories Proposed.
