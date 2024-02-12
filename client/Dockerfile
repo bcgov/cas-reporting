@@ -29,9 +29,13 @@ ADD https://github.com/Yelp/dumb-init/releases/download/v1.2.5/dumb-init_1.2.5_x
 RUN chmod +x /usr/local/bin/dumb-init
 ENTRYPOINT ["dumb-init", "--"]
 
+ENV NEXT_TELEMETRY_DISABLED 1
 ENV NODE_ENV=production
 
-RUN yarn install --frozen-lockfile --production=true && \
+RUN yarn install --frozen-lockfile --production=false && \
+    yarn run build && \
+    rm -r node_modules && \
+    yarn install --frozen-lockfile --production=true && \
     yarn cache clean && \
     # Make everything in the home group-writable to support OpenShift's restricted SCC
     # Needs to be done as root to chown
