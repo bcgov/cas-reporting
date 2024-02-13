@@ -31,30 +31,10 @@ spec:
                 secretKeyRef:
                   key: django-secret-key
                   name: {{ .Release.Name }}-backend
-            - name: DB_USER
+            - name: DB_FULL_URI
               valueFrom:
                 secretKeyRef:
-                  key: user
-                  name: {{ .Values.database.secret }}
-            - name: DB_PASSWORD
-              valueFrom:
-                secretKeyRef:
-                  key: password
-                  name: {{ .Values.database.secret }}
-            - name: DB_NAME
-              valueFrom:
-                secretKeyRef:
-                  key: dbname
-                  name: {{ .Values.database.secret }}
-            - name: DB_PORT
-              valueFrom:
-                secretKeyRef:
-                  key: port
-                  name: {{ .Values.database.secret }}
-            - name: DB_HOST
-              valueFrom:
-                secretKeyRef:
-                  key: host
+                  key: pgbouncer-uri
                   name: {{ .Values.database.secret }}
             - name: ALLOWED_HOSTS
               value: '*'

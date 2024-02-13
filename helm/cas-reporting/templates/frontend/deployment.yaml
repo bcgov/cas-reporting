@@ -26,11 +26,11 @@ spec:
           env:
             - name: API_URL
               value: http://{{ include "cas-reporting.fullname" . }}-backend.{{ .Release.Namespace }}.svc.cluster.local:{{ .Values.backend.service.port }}/api/
-            - name: KEYCLOAK_CLIENT_SECRET
-              valueFrom:
-                secretKeyRef:
-                  name: keycloak-gold-client-secret
-                  key: kcClientSecret
+            # - name: KEYCLOAK_CLIENT_SECRET
+            #   valueFrom:
+            #     secretKeyRef:
+            #       name: keycloak-gold-client-secret
+            #       key: kcClientSecret
             - name: KEYCLOAK_AUTH_URL
               value: {{ .Values.frontend.auth.keycloakAuthUrl}}
             - name: KEYCLOAK_REALMS
