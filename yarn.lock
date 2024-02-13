@@ -2672,11 +2672,6 @@ pupa@^3.1.0:
   dependencies:
     escape-goat "^4.0.0"
 
-pytest@^1.0.0:
-  version "1.0.0"
-  resolved "https://registry.yarnpkg.com/pytest/-/pytest-1.0.0.tgz#5fa23778c77a937209b5d2560e1246dda9507fe6"
-  integrity sha512-nh2Z5MFd6WyMqUYvLoTrbGpkcI1Gb2GQ2HmdaGZ0h4lCc8FENRhSr5lcHKSK9KIQ9gfrUT5zJaxRbaA/1XjLlA==
-
 queue-microtask@^1.2.2:
   version "1.2.3"
   resolved "https://registry.yarnpkg.com/queue-microtask/-/queue-microtask-1.2.3.tgz#4929228bbc724dfac43e0efb058caf7b6cfb6243"
