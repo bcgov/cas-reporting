@@ -1,0 +1,27 @@
+name: pytest
+
+on:
+  push:
+    branches: [main, develop, 73-initialize-pytest]
+  pull_request:
+    branches: [main, develop, 73-initialize-pytest]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.9"
+
+      - name: Install dependencies
+        run: |
+          cd server
+          pip install -r requirements.txt
+
+      - name: Run pytest
+        run: |
+          cd server
+          pytest
