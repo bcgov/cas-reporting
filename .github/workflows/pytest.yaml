@@ -7,19 +7,22 @@ on:
     branches: [main, develop, 73-initialize-pytest]
 
 jobs:
-  test:
+  build:
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: ["3.9"]
 
     steps:
-      - name: Set up Python
-        uses: actions/setup-python@v5
+      - uses: actions/checkout@v3
+      - name: Set up Python ${{ matrix.python-version }}
+        uses: actions/setup-python@v4
         with:
-          python-version: "3.9"
-
+          python-version: ${{ matrix.python-version }}
       - name: Install dependencies
         run: |
-          pip install -r requirements.txt
-
-      - name: Run pytest
+          python -m pip install --upgrade pip
+          if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
+      - name: Test with pytest
         run: |
           pytest
