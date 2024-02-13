@@ -79,8 +79,8 @@ WSGI_APPLICATION = 'server.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 default_db_url = f"postgres://{os.environ.get('DB_USER', 'postgres')}:{os.environ.get('DB_PASSWORD')}@{os.environ.get('DB_HOST', '127.0.0.1')}:{os.environ.get('DB_PORT', '5432')}/{os.environ.get('DB_NAME', 'registration')}"
-newUrl = os.environ.get('DB_FULL_URI')
-DATABASES = {'default': dj_database_url.config(default=newUrl, conn_max_age=600, conn_health_checks=True)}
+cluster_db_url = os.environ.get('DB_FULL_URI', default_db_url)
+DATABASES = {'default': dj_database_url.config(default=cluster_db_url, conn_max_age=600, conn_health_checks=True)}
 
 
 # Password validation
