@@ -23,5 +23,5 @@ jobs:
       - name: dev env setup
         uses: ./.github/actions/dev-env-setup
       - name: Run pytest
-        working-directory: ./bc_obps
+        working-directory: ./server
         run: make pythontests
