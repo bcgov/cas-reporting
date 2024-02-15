@@ -1,0 +1,27 @@
+name: pytest
+
+on:
+  push:
+    branches: [main, develop]
+  pull_request:
+    branches: [main, develop]
+
+jobs:
+  install-dev-tools:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: dev env setup
+        uses: ./.github/actions/dev-env-setup
+      - run: yarn install --frozen-lockfile
+        working-directory: ./client
+  backend-tests:
+    needs: ["install-dev-tools"]
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: dev env setup
+        uses: ./.github/actions/dev-env-setup
+      - name: Run pytest
+        working-directory: ./server
+        run: make pythontests

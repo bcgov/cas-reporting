@@ -52,5 +52,3 @@ runs:
       shell: bash
       run: |
         make install_backend_asdf_tools
-        make start_pg
-        make create_db
