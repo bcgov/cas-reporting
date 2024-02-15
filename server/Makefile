@@ -2,6 +2,15 @@ SHELL := /usr/bin/env bash
 PSQL=psql -h localhost
 DB_NAME=reporting
 MANAGE_PY = manage.py
+SCHEMA_NAME=erc
+
+# If the VIRTUAL_ENV is specified, we can assume we're in a poetry shell, otherwise
+# we need to execute "poetry run"
+ifdef VIRTUAL_ENV
+POETRY_RUN=
+else
+POETRY_RUN=poetry run
+endif
 
 help: ## Show this help.
 	@sed -ne '/@sed/!s/## //p' $(MAKEFILE_LIST)
@@ -61,19 +70,58 @@ drop_db:
 .PHONY: run
 run: ## run the server
 run:
-	@poetry run python $(MANAGE_PY) runserver
+	$(POETRY_RUN) python $(MANAGE_PY) runserver
 
 .PHONY: migrate
 migrate: ## run the migrations
 migrate:
-	@poetry run python $(MANAGE_PY) migrate
+	$(POETRY_RUN) python $(MANAGE_PY) migrate
 
 .PHONY: migrations
 migrations: ## create the migrations
 migrations:
-	@poetry run python $(MANAGE_PY) makemigrations
+	$(POETRY_RUN) python $(MANAGE_PY) makemigrations
 
 .PHONY: superuser
 superuser: ## create a superuser
 superuser:
-	@poetry run python $(MANAGE_PY) createsuperuser
+	$(POETRY_RUN) python $(MANAGE_PY) create_superuser
+
+loadfixtures: ## add all registration fixture files to the db
+loadfixtures:
+	$(POETRY_RUN) python $(MANAGE_PY) loaddata ./registration/fixtures/*/*.json
+
+.PHONY: reset_db
+reset_db: ## drop and recreate the db
+reset_db:  drop_db create_db migrate loadfixtures
+
+.PHONY: clean
+clean: ## delete python bytecode
+clean:
+	find . -name \*.pyc -delete
+
+.PHONY: pythontests
+pythontests: ## run Python tests
+pythontests: # ARGS can be used to pass arguments to pytest like -k to specify a test name
+	$(POETRY_RUN) pytest $(ARGS)
+
+
+.PHONY: pythontests_verbose
+pythontests_verbose: ## run Python tests with verbose output
+pythontests_verbose:
+	$(POETRY_RUN) pytest -v
+
+.PHONY: pythontests_watch
+pythontests_watch: ## Use pytest-testmon and pytest-watch to trigger test runs on file changes
+pythontests_watch:
+	$(POETRY_RUN) ptw --runner "pytest --picked --testmon"
+
+.PHONY: pythontests_coverage
+pythontests_coverage: ## run Python tests with coverage
+pythontests_coverage:
+	$(POETRY_RUN) pytest --cov=. --cov-config=.coveragerc --cov-report=term-missing --no-cov-on-fail
+
+.PHONY: clear_db
+clear_db: ## Clear all data in the datbase
+clear_db:
+	$(POETRY_RUN) python $(MANAGE_PY) truncate_all_tables
