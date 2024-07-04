@@ -1,11 +1,14 @@
-"use client"
-import { useParams } from "next/navigation";
+import { auth } from "@/dashboard/auth";
+
 import MultiStepHeader from "@bciers/components/form/components/MultiStepHeader";
 
+export default async function Page() {
+  // Get the user's identity provider
+  // const session = await auth();
+  // const name = session?.user?.full_name;
+  // // Build the navigation tiles
+  // return <>TBD {name}</>;
 
-const ReportsPage = () => {
-  const params = useParams();
-  const step = parseInt(params?.formSection as string, 10) - 1;
 
   const customStepNames = [
     "Operation Information",
@@ -19,6 +22,4 @@ const ReportsPage = () => {
       <MultiStepHeader step={1} steps={customStepNames} />
     </div>
   );
-};
-
-export default ReportsPage;
+}
