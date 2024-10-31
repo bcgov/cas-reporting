@@ -1,9 +1,10 @@
 ---
 name: Bug Template
 about: For documenting bugs as per our bug process
-title: ""
-labels: bug
-assignees: ""
+title: ''
+labels: Bug
+assignees: ''
+
 ---
 
 #### Describe the Bug:
@@ -21,6 +22,8 @@ assignees: ""
 #### Steps to reproduce the behaviour:
 
 1. Step #1
+2. Step #2
+3. Step #3
 
 #### Screenshots:
 
